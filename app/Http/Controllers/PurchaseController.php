@@ -12,7 +12,7 @@ class PurchaseController extends Controller
 {
     public function viewPurchase()
     {
-        $column_names = ['Suppleir', 'Product Name', 'Unit', 'Price', 'Items'];
+        $column_names = ['Product Name', 'Suppleir', 'Unit', 'Price', 'Items'];
         return view('purchase.list')->with('column_names', $column_names);
     }
 
@@ -32,10 +32,11 @@ class PurchaseController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:255',
+            'product name' => 'required|string|max:255',
+            'supplier' => 'required|string|max:255',
+            'unit' => 'required|string|max:255',
+            'price' => 'required|string|max:255',
+            'items' => 'required|string|max:255',
         ]);
 
         if($validator->fails()){

@@ -109,8 +109,8 @@
                     // serverSide: true,
                     ajax: "/ulasan/list",
                     columns: [
-                        {data:'supplier'},
                         {data:'product name'},
+                        {data:'supplier'},
                         {data:'unit'},
                         {data:'price'},
                         {data:'items'},
@@ -375,16 +375,16 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Supplier <span class="text-danger">*</span></label>
+                            <label class="col-form-label col-lg-3"> Product Name <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="supplier" class="form-control" value="" required placeholder="Description">
+                                <input type="text" name="product name" class="form-control" value="" required placeholder="Description">
                             </div>
                         </div>
         
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Product Name <span class="text-danger">*</span></label>
+                            <label class="col-form-label col-lg-3"> Supplier <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="product name" class="form-control" value="" required placeholder="Name">
+                                <input type="text" name="supplier" class="form-control" value="" required placeholder="Name">
                             </div>
                         </div>
         
