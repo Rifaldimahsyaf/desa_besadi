@@ -102,16 +102,18 @@
                     //         action: function(e, dt, node, config) {
                     //             window.location.href = "/packages/general/create";
                     //         }
-                    //     }
+                    //    
                     // ],
                     order: [0, "asc"],
                     processing: true,
                     // serverSide: true,
                     ajax: "/ulasan/list",
                     columns: [
-                        {data:'name'},
-                        {data:'work'},
-                        {data:'description'},
+                        {data:'supplier'},
+                        {data:'product name'},
+                        {data:'unit'},
+                        {data:'price'},
+                        {data:'items'},
                         {
                             data:'img_url',
                             render: function(data, type, row){
@@ -371,44 +373,42 @@
                 <div class='modal-body'>
                     <form action="ulasan" method="POST" class="form-validate-jquery" enctype="multipart/form-data">
                         @csrf
-        
+
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Name <span class="text-danger">*</span></label>
+                            <label class="col-form-label col-lg-3"> Supplier <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="name" class="form-control" value="" required placeholder="Name">
+                                <input type="text" name="supplier" class="form-control" value="" required placeholder="Description">
                             </div>
                         </div>
         
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Work <span class="text-danger">*</span></label>
+                            <label class="col-form-label col-lg-3"> Product Name <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="work" class="form-control" value="" required placeholder="Work">
+                                <input type="text" name="product name" class="form-control" value="" required placeholder="Name">
+                            </div>
+                        </div>
+        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3"> Unit <span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <input type="text" name="unit" class="form-control" value="" required placeholder="Work">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Description <span class="text-danger">*</span></label>
+                            <label class="col-form-label col-lg-3"> Price <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="description" class="form-control" value="" required placeholder="Description">
+                                <input type="text" name="price" class="form-control" value="" required placeholder="Description">
                             </div>
                         </div>
 
-                        <div class="form-group row" id="row_img_company">
-                            <div class="col-lg-3">Ulasan Image</div>
-                            <div class="col-lg-9">
-                                <img id="icon_old" class="company_image" src="">
-                                <img id="icon_new" style="max-width: 300px; max-height: 300px" class="company_image" src="">
-                                {{-- <img id="icon" src="" style="max-width: 300px; max-height: 300px"> --}}
-                            </div>
-                        </div>
-        
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"></label>
+                            <label class="col-form-label col-lg-3"> Items <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="file" name="image" class="form-input-styled" id="company_image_input" accept="image/png, image/gif, image/jpeg">
+                                <input type="text" name="items" class="form-control" value="" required placeholder="Description">
                             </div>
                         </div>
-        
+
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary">Add</button>
                         </div>

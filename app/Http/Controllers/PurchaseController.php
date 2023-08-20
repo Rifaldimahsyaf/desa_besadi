@@ -12,7 +12,7 @@ class PurchaseController extends Controller
 {
     public function viewPurchase()
     {
-        $column_names = ['Name', 'Email', 'Subject', 'Message'];
+        $column_names = ['Suppleir', 'Product Name', 'Unit', 'Price', 'Items'];
         return view('purchase.list')->with('column_names', $column_names);
     }
 
