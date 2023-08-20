@@ -132,10 +132,10 @@
                                                     '<i class="icon-menu9"></i>'+
                                                 '</a>'+
                                                 '<div class="dropdown-menu dropdown-menu-right">'+
-                                                    '<a href="/ulasan/update/'+row['id']+'" class="dropdown-item">'+
+                                                    '<a href="/purchase/update/'+row['id']+'" class="dropdown-item">'+
                                                         '<i class="icon-pencil3"></i>Edit'+
                                                     '</a>'+
-                                                    '<a href="#" class="dropdown-item btn-resend-creds" ulasan_id="' + row['id'] + '">'+
+                                                    '<a href="#" class="dropdown-item btn-resend-creds" purchase_id="' + row['id'] + '">'+
                                                         '<i class="icon-bin2"></i>Delete'+
                                                     '</a>'+
                                                 '</div>'+

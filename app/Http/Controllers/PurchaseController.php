@@ -29,17 +29,6 @@ class PurchaseController extends Controller
         return DataTables::of($model)->make(true);
     }
 
-    public function get(Request $request)
-    {
-        $alumni = Subject::orderBy('created_at', 'desc')->get();
-        $formattedData = $alumni->map(function ($alumni) {
-            return $alumni->format();
-        });
-        $data = $this->paginate($formattedData);
-        $pageName = "subject";
-        return PaginationFormat::transform($data, $pageName);
-    }
-
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(),[
