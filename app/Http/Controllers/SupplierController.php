@@ -12,7 +12,7 @@ class SupplierController extends Controller
 {
     public function viewSupplier()
     {
-        $column_names = ['Name', 'alamat'];
+        $column_names = ['Name', 'Address'];
         return view('supplier.list')->with('column_names', $column_names);
     }
 

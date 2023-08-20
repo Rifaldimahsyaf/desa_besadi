@@ -359,7 +359,7 @@
 
     <!-- MODALS -->
 
-    <!-- Modal Add Alumni -->
+    <!-- Modal Add Purchsase -->
     <div id='modal-add-ulasan' class='modal fade' tabindex='-1'>
         <div class='modal-dialog modal-small'>
             <div class='modal-content'>
@@ -418,7 +418,7 @@
         </div>
     </div>
 
-    <!-- Modal Delete Subject -->
+    <!-- Modal Delete Purchase -->
     <div id='modal-resend-creds' class='modal fade' tabindex='-1'>
         <div class='modal-dialog modal-xs'>
             <div class='modal-content'>
