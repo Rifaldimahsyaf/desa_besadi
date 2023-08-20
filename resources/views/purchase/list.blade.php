@@ -107,21 +107,13 @@
                     order: [0, "asc"],
                     processing: true,
                     // serverSide: true,
-                    ajax: "/ulasan/list",
+                    ajax: "/purchase/list",
                     columns: [
-                        {data:'product name'},
-                        {data:'supplier'},
+                        {data:'product_name'},
+                        {data:'supplier_name'},
                         {data:'unit'},
                         {data:'price'},
                         {data:'items'},
-                        {
-                            data:'img_url',
-                            render: function(data, type, row){
-                                if(data)
-                                    return '<img src="' +row['img_url']+ '" class="img-fluid mx-auto d-block" style="height:80px" loading="lazy" alt="Company Image">';
-                                return 'No';
-                            }
-                        },
                         {
                             data:'Actions',
                             className: 'text-center',
@@ -315,6 +307,7 @@
 @endsection
 
 @section('content')
+
     <div class="card">
         <div class="card-header header-elements-inline">
             <h5 class="card-title">List Purchase</h5>
@@ -371,41 +364,44 @@
                 </div>
 
                 <div class='modal-body'>
-                    <form action="ulasan" method="POST" class="form-validate-jquery" enctype="multipart/form-data">
+                    <form action="purchase" method="POST" class="form-validate-jquery" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3"> Product Name <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="product name" class="form-control" value="" required placeholder="Description">
+                                <input type="text" name="product_name" class="form-control" value="" required placeholder="product name">
                             </div>
                         </div>
-        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Supplier <span class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                                <input type="text" name="supplier" class="form-control" value="" required placeholder="Name">
-                            </div>
+
+                        <div class="form-group">
+                            <label>Suplier:</label>
+                            
+                            <select class="form-control form-control-select2" name="supplier_id" data-fouc>
+                                @foreach($list_supplier as $supplier)
+                                    <option value="{{ $supplier['id'] }}">{{ $supplier['name'] }}</option>
+                                @endforeach
+                            </select>
                         </div>
         
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3"> Unit <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="unit" class="form-control" value="" required placeholder="Work">
+                                <input type="text" name="unit" class="form-control" value="" required placeholder="unit">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3"> Price <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="price" class="form-control" value="" required placeholder="Description">
+                                <input type="text" name="price" class="form-control" value="" required placeholder="price">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3"> Items <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="items" class="form-control" value="" required placeholder="Description">
+                                <input type="text" name="items" class="form-control" value="" required placeholder="items">
                             </div>
                         </div>
 

@@ -18,8 +18,9 @@ class CreatePurchaseTable extends Migration
             $table->uuid('supplier_id');
             $table->string('product_name');
             $table->string('unit');
-            $table->decimal('price', 5, 2);
+            $table->decimal('price', 15, 2);
             $table->integer('items');
+            $table->enum('status', ['success', 'proccess']);
             $table->timestamps();
         });
     }

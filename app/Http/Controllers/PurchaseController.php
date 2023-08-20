@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use DataTables;
 use App\Models\Purchase;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -13,7 +14,9 @@ class PurchaseController extends Controller
     public function viewPurchase()
     {
         $column_names = ['Product Name', 'Supplier', 'Unit', 'Price', 'Items'];
-        return view('purchase.list')->with('column_names', $column_names);
+        $modelSupplier = Supplier::get()->toArray();
+
+        return view('purchase.list')->with(['column_names' => $column_names, 'list_supplier' => $modelSupplier]);
     }
 
     public function viewUpdateSubject($id){
@@ -22,9 +25,9 @@ class PurchaseController extends Controller
         return view('purchase.update')->with('model', $model);
     }
 
-    public function showSubjectAjax()
+    public function showPurchaseAjax()
     {
-        $model = Subject::get()->map->format();
+        $model = Purchase::get()->map->format();
 
         return DataTables::of($model)->make(true);
     }
@@ -32,29 +35,30 @@ class PurchaseController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'product name' => 'required|string|max:255',
-            'supplier' => 'required|string|max:255',
+            'product_name' => 'required|string|max:255',
+            'supplier_id' => 'required|string|max:255',
             'unit' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'items' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'items' => 'required|numeric',
         ]);
 
         if($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
 
-        $modelSubject = Subject::create([
+        $modelPurchase = Purchase::create([
             'id' => (String) Str::uuid(),
-            'name' => $request->name,
-            'email' => $request->email,
-            'subject' => $request->subject,
-            'message' => $request->message,
+            'product_name' => $request->product_name,
+            'supplier_id' => $request->supplier_id,
+            'unit' => $request->unit,
+            'price' => $request->price,
+            'items' => $request->items,
         ]);
 
-        if($modelSubject)
-            return redirect()->intended('/subject')->with('successMessage', 'Successfully Add Subject.');
+        if($modelPurchase)
+            return redirect()->intended('/purchase')->with('successMessage', 'Successfully Add Purchase.');
 
-        return redirect()->back()->with('errorMessage', 'Failed Add Subject.');
+        return redirect()->back()->with('errorMessage', 'Failed Add Purcahse.');
     }
 
     public function update(Request $request)
