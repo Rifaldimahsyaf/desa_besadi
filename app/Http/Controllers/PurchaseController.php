@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Validator;
 use DataTables;
 use App\Models\Purchase;
@@ -13,10 +14,11 @@ class PurchaseController extends Controller
 {
     public function viewPurchase()
     {
-        $column_names = ['Product Name', 'Supplier', 'Unit', 'Price', 'Items'];
+        $column_names = ['Product Name', 'Supplier', 'Unit', 'Price', 'Items' ,'Status'];
         $modelSupplier = Supplier::get()->toArray();
+        $modelProduct = Product::get()->toArray();
 
-        return view('purchase.list')->with(['column_names' => $column_names, 'list_supplier' => $modelSupplier]);
+        return view('purchase.list')->with(['column_names' => $column_names, 'list_supplier' => $modelSupplier, 'list_product' => $modelProduct ]);
     }
 
     public function viewUpdateSubject($id){
@@ -29,30 +31,34 @@ class PurchaseController extends Controller
     {
         $model = Purchase::get()->map->format();
 
+
         return DataTables::of($model)->make(true);
     }
 
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'product_name' => 'required|string|max:255',
+            'product_id' => 'required|string|max:255',
             'supplier_id' => 'required|string|max:255',
             'unit' => 'required|string|max:255',
             'price' => 'required|numeric',
             'items' => 'required|numeric',
+     
         ]);
 
         if($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
 
+
         $modelPurchase = Purchase::create([
             'id' => (String) Str::uuid(),
-            'product_name' => $request->product_name,
+            'product_id' => $request->product_id,
             'supplier_id' => $request->supplier_id,
             'unit' => $request->unit,
             'price' => $request->price,
             'items' => $request->items,
+            'status' => "proccess",
         ]);
 
         if($modelPurchase)
@@ -64,7 +70,7 @@ class PurchaseController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'subject_id' => 'required|string|max:255',
+            'purchase_id' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255',
             'subject' => 'required|string|max:255',
@@ -75,7 +81,7 @@ class PurchaseController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $modelSubject = Subject::where('id', $request->subject_id)->first();
+        $modelSubject = Subject::where('id', $request->purchase_id)->first();
         
         if(!$modelSubject)
             return response()->json(['status' => 'Subject Not Found.'], 422);
@@ -95,22 +101,22 @@ class PurchaseController extends Controller
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'subject_id' => 'required|string|max:255',
+            'purchase_id' => 'required|string|max:255',
         ]);
 
         if($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
 
-        $modelSubject = Subject::find($request->subject_id);
+        $modelPurchase = Purchase::find($request->purchase_id);
 
-        if(!$modelSubject)
-            return response()->json(['status' => 'Subject Not Found.'], 422);
+        if(!$modelPurchase)
+            return response()->json(['status' => 'Purchase Not Found.'], 422);
         
-        if($modelSubject->delete()){
-            return redirect()->back()->with('successMessage', 'Successfully Delete Subject.');
+        if($modelPurchase->delete()){
+            return redirect()->back()->with('successMessage', 'Successfully Delete Purchase.');
         }
-        return redirect()->back()->with('errorMessage', 'Failed Delete Subject.');
+        return redirect()->back()->with('errorMessage', 'Failed Delete Purchase.');
     }
 
 }

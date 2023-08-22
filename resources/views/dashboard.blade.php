@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>
-        @yield('title') - Oxbridge Institute
+        @yield('title') - Inventory-Magang
 
     </title>
 

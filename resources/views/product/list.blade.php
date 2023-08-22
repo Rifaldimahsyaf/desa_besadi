@@ -1,7 +1,7 @@
 @extends('sidebar')
 
 @section('title')
-    Purchase List
+    Product List
 @endsection
 
 @section('head')
@@ -102,19 +102,18 @@
                     //         action: function(e, dt, node, config) {
                     //             window.location.href = "/packages/general/create";
                     //         }
-                    //    
+                    //     }
                     // ],
                     order: [0, "asc"],
                     processing: true,
                     // serverSide: true,
-                    ajax: "/purchase/list",
+                    ajax: "/product/list",
                     columns: [
-                        {data:'product_name'},
-                        {data:'supplier_name'},
+                        {data:'name'},
                         {data:'unit'},
-                        {data:'price'},
+                        {data:'purchase_price'},
+                        {data:'selling_price'},
                         {data:'items'},
-                        {data:'status'},
                         {
                             data:'Actions',
                             className: 'text-center',
@@ -125,13 +124,10 @@
                                                     '<i class="icon-menu9"></i>'+
                                                 '</a>'+
                                                 '<div class="dropdown-menu dropdown-menu-right">'+
-                                                '<a href="/purchase/update/'+row['id']+'" class="dropdown-item">'+
-                                                        '<i class="icon-store"></i>Put In Stock'+
-
-                                                    '<a href="/purchase/update/'+row['id']+'" class="dropdown-item">'+
+                                                    '<a href="/product/update/'+row['id']+'" class="dropdown-item">'+
                                                         '<i class="icon-pencil3"></i>Edit'+
                                                     '</a>'+
-                                                    '<a href="#" class="dropdown-item btn-resend-creds" purchase_id="' + row['id'] + '">'+
+                                                    '<a href="#" class="dropdown-item btn-resend-creds" product_id="' + row['id'] + '">'+
                                                         '<i class="icon-bin2"></i>Delete'+
                                                     '</a>'+
                                                 '</div>'+
@@ -204,8 +200,8 @@
             });
 
             $('body').delegate('.btn-resend-creds', 'click', function(e){
-                $purchase_id = $(this).attr('purchase_id')
-                $('#modal-resend-creds #purchase_id').val($purchase_id);
+                $supplier_id = $(this).attr('supplier_id')
+                $('#modal-resend-creds #supplier_id').val($supplier_id);
                 $('#modal-resend-creds').modal();
             });
 
@@ -311,14 +307,13 @@
 @endsection
 
 @section('content')
-
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">List Purchase</h5>
+            <h5 class="card-title">List Product</h5>
         </div>
 
         <div class="card-body">
-            <button type="submit" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-add-ulasan"><i class="fas fa-plus mr-2"></i>Add Purchase</button>
+            <button type="submit" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-add-ulasan"><i class="fas fa-plus mr-2"></i>Add Supplier</button>
         </div>
 
         <table class="table datatable-button-init-custom">
@@ -347,74 +342,36 @@
                         }
                     }
                 @endphp
-                {{-- @foreach ($column_names as $key => $value)
-                <th>{{ $value }}</th>
-                @endforeach --}}
                 <th class="text-center no-sort">Actions</th>
             </tr>
             </thead>
         </table>
     </div>
 
-    
     <!-- MODALS -->
 
-    <!-- Modal Add Purchsase -->
+    <!-- Modal Add Product -->
     <div id='modal-add-ulasan' class='modal fade' tabindex='-1'>
         <div class='modal-dialog modal-small'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h5 class='modal-title'>Add Purchase</h5>
+                    <h5 class='modal-title'>Add Product</h5>
                     <button type='button' class='close' data-dismiss='modal'>&times;</button>
                 </div>
 
                 <div class='modal-body'>
-                    <form action="purchase" method="POST" class="form-validate-jquery" enctype="multipart/form-data">
+                    <form action="product" method="POST" class="form-validate-jquery" enctype="multipart/form-data">
                         @csrf
-
-                         <div class="form-group">
-                            <label>Name:</label>
-                            
-                            <select class="form-control form-control-select2" name="product_id" data-fouc>
-                                @foreach($list_product as $product)
-                                    <option value="{{ $product['id'] }}">{{ $product['name'] }}</option>
-                                @endforeach
-                            </select>
-                        </div> 
-
-
-
-                        <div class="form-group">
-                            <label>Suplier:</label>
-                            
-                            <select class="form-control form-control-select2" name="supplier_id" data-fouc>
-                                @foreach($list_supplier as $supplier)
-                                    <option value="{{ $supplier['id'] }}">{{ $supplier['name'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
         
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Unit <span class="text-danger">*</span></label>
+                            <label class="col-form-label col-lg-3"> Nama <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" name="unit" class="form-control" value="" required placeholder="unit">
+                                <input type="text" name="name" class="form-control" value="" required placeholder="Name">
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Price <span class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                                <input type="text" name="price" class="form-control" value="" required placeholder="price">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3"> Items <span class="text-danger">*</span></label>
-                            <div class="col-lg-9">
-                                <input type="text" name="items" class="form-control" value="" required placeholder="items">
-                            </div>
-                        </div>
-
+        
+                        
+        
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary">Add</button>
                         </div>
@@ -424,22 +381,21 @@
         </div>
     </div>
 
-    <!-- Modal Delete Purchase -->
+    <!-- Modal Delete Supplier -->
     <div id='modal-resend-creds' class='modal fade' tabindex='-1'>
         <div class='modal-dialog modal-xs'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                
                 </div>
 
                 <div class='modal-body'>
-                    <h3 class="d-flex justify-content-center" style="margin: auto">Delete this Purchase ?</h3>
+                    <h3 class="d-flex justify-content-center" style="margin: auto">Delete this Supplier ?</h3>
                     <br>
                     <div class="text-right">
-                        <form action="purchase-delete" method="POST">
+                        <form action="supplier-delete" method="POST">
                             @csrf
 
-                            <input type="hidden" name="purchase_id" id="purchase_id">
+                            <input type="hidden" name="supplier_id" id="supplier_id">
 
                             <div class="text-right">
                                 <button type='button' class='btn btn-link' data-dismiss='modal'>No</button>
@@ -451,5 +407,7 @@
             </div>
         </div>
     </div>
+
+    
 
 @endsection

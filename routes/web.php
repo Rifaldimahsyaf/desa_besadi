@@ -36,6 +36,14 @@ $router->group(['namespace' => '\App\Http\Controllers'], function() use ($router
         $router->post('supplier-update', 'SupplierController@update');
         $router->get('supplier/update/{id}', 'SupplierController@viewUpdateSupplier');
         $router->post('supplier-delete', 'SupplierController@delete');
+
+        //product
+        $router->get('product', 'ProductController@viewProduct');
+        $router->get('product/list', 'ProductController@showProductAjax');
+        $router->post('product', 'ProductController@create');
+        $router->post('supplier-update', 'SupplierController@update');
+        $router->get('supplier/update/{id}', 'SupplierController@viewUpdateSupplier');
+        $router->post('supplier-delete', 'SupplierController@delete');
         
     });
 });
