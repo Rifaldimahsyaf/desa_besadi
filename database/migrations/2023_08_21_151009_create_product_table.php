@@ -21,6 +21,7 @@ class CreateProductTable extends Migration
             $table->decimal('selling_price', 15, 2)->nullable();
             $table->integer('items')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

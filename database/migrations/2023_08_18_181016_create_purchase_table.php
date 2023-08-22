@@ -22,6 +22,7 @@ class CreatePurchaseTable extends Migration
             $table->integer('items');
             $table->enum('status', ['success', 'proccess']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
