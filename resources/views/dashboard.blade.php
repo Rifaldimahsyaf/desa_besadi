@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>
-        @yield('title') - Inventory-Magang
+        @yield('title') -Desa Besadi
 
     </title>
 
@@ -56,9 +56,10 @@
 <div class="navbar navbar-expand-md navbar-light navbar-static">
     <div class="navbar-brand d-flex align-items-center" >
         <a href="/admin/company" class="d-inline-block">
-            <img src="https://cdna.iconscout.com/img/iconscout-logo.color.e58b57b.svg" style="height: 30px" alt="">
+            <img src="https://www.langkatkab.go.id/aset/images/logo.png" style="height: 30px" alt="">
         </a>
-        <p>Magang Inventory</p>
+        <p style="margin-left: 10px; font-weight: bold; font-size: 16px;">DESA BESADI</p> 
+        <p>Desa Besadi</p>
     </div>
 
     <div class="d-md-none">

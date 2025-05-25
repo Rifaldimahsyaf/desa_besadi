@@ -1,17 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Log; // <- pastikan ini ada
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 $router->group(['namespace' => '\App\Http\Controllers'], function() use ($router){
     $router->get('', 'AuthController@viewLogin');
@@ -21,29 +11,27 @@ $router->group(['namespace' => '\App\Http\Controllers'], function() use ($router
     $router->group(['middleware' => 'preventBackTab'], function () use ($router) {
         $router->get('logout', 'AuthController@logout');
 
-        //purchase
-        $router->get('purchase', 'PurchaseController@viewPurchase');
-        $router->get('purchase/list', 'PurchaseController@showPurchaseAjax');
-        $router->post('purchase', 'PurchaseController@create');
-        $router->post('purchase-update', 'PurchaseController@update');
-        $router->get('purchase/update/{id}', 'PurchaseController@viewUpdatePurchase');
-        $router->post('purchase-delete', 'PurchaseController@delete');
+        // Warga routes ...
+        $router->get('warga', 'WargaController@viewWarga');
+        $router->get('warga/list', 'WargaController@showWargaAjax');
+        $router->post('warga', 'WargaController@create');
+        $router->post('warga-update', 'WargaController@update');
+        $router->get('warga/update/{id}', 'WargaController@viewUpdateWarga');
+        $router->post('warga-delete', 'WargaController@delete');
 
-        //supplier
-        $router->get('supplier', 'SupplierController@viewSupplier');
-        $router->get('supplier/list', 'SupplierController@showSupplierAjax');
-        $router->post('supplier', 'SupplierController@create');
-        $router->post('supplier-update', 'SupplierController@update');
-        $router->get('supplier/update/{id}', 'SupplierController@viewUpdateSupplier');
-        $router->post('supplier-delete', 'SupplierController@delete');
+        // Inventaris routes ...
+        $router->get('inventaris', 'InventarisController@viewInventaris');
+        $router->get('inventaris/list', 'InventarisController@showInventarisAjax');
+        $router->post('inventaris', 'InventarisController@create');
+        $router->post('inventaris-update', 'InventarisController@update');
+        $router->get('inventaris/update/{id}', 'InventarisController@viewUpdateInventaris');
+        $router->post('inventaris-delete', 'InventarisController@delete');
 
-        //product
-        $router->get('product', 'ProductController@viewProduct');
-        $router->get('product/list', 'ProductController@showProductAjax');
-        $router->post('product', 'ProductController@create');
-        $router->post('supplier-update', 'SupplierController@update');
-        $router->get('supplier/update/{id}', 'SupplierController@viewUpdateSupplier');
-        $router->post('supplier-delete', 'SupplierController@delete');
-        
+        // Import Excel Inventaris with logging example
+       $router->post('inventaris/import', [
+    'as'   => 'inventaris.import',
+    'uses' => 'InventarisController@import',
+]);
+        // ... routes lainnya
     });
 });

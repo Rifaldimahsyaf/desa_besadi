@@ -3,7 +3,7 @@
     Login
 @endsection
 
-@section('content')
+@section('content' )
     <div class="content d-flex justify-content-center align-items-center pt-5">
 
         <!-- Login form -->

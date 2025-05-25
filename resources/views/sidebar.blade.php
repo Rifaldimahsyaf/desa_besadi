@@ -4,6 +4,25 @@
     <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
 
     <li class="nav-item">
+        <a href="warga" class="nav-link {{ request()->is('ulasan*') ? 'active' : ''  }}">
+            <i class="icon-man"></i>
+            <span>
+                DATA PENDUDUK
+            </span>
+        </a>
+    </li>
+
+   
+<li class="nav-item">
+    <a href="inventaris" class="nav-link {{ request()->is('ulasan*') ? 'active' : ''  }}">
+        <i class="icon-book"></i>
+        <span>
+            INVENTARIS DESA
+        </span>
+    </a>
+</li>
+
+    <!-- <li class="nav-item">
         <a href="/product" class="nav-link {{ request()->is('ulasan*') ? 'active' : ''  }}">
             <i class="icon-store"></i>
             <span>
@@ -40,6 +59,15 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a href="/karyawan" class="nav-link {{ request()->is('ulasan*') ? 'active' : ''  }}">
+            <i class="icon-users4"></i>
+            <span>
+                KARYAWAN
+            </span>
+        </a>
+    </li>
+
 
 
     <li class="nav-item">
@@ -49,6 +77,6 @@
                 INVOICE
             </span>
         </a>
-    </li>
+    </li> -->
 
 @endsection
